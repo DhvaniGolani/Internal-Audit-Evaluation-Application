@@ -1,0 +1,1412 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Project2021Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AuditTable">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="dateOfAudit" Type="date" Nullable="false" />
+          <Property Name="siteName" Type="varchar(max)" Nullable="false" />
+          <Property Name="siteDetails" Type="text" Nullable="false" />
+          <Property Name="auditTeam" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="observerTeam" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="strenghts" Type="text" />
+          <Property Name="MajorNC" Type="text" />
+          <Property Name="MinorNC" Type="text" />
+          <Property Name="OFIs" Type="text" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Audit_ID" Type="varchar(max)" />
+          <Property Name="CreatedBy" Type="varchar(max)" />
+          <Property Name="CreatedOn" Type="date" />
+          <Property Name="ModifiedBy" Type="varchar(max)" />
+          <Property Name="ModifiedOn" Type="date" />
+          <Property Name="IsSubmittedToObserver" Type="bit" />
+        </EntityType>
+        <EntityType Name="Form4Details">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FK_AuditID" Type="int" Nullable="false" />
+          <Property Name="AuditNo" Type="varchar(max)" Nullable="false" />
+          <Property Name="IsSubmittedToObserver" Type="bit" Nullable="false" />
+          <Property Name="IsApproved" Type="bit" Nullable="false" />
+          <Property Name="ObserverTeam" Type="varchar(max)" Nullable="false" />
+          <Property Name="AuditeeTeam" Type="varchar(max)" />
+          <Property Name="isAPApproved" Type="bit" />
+          <Property Name="ActPlan" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="HSE_details_tbl">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ic" Type="varchar(max)" Nullable="false" />
+          <Property Name="site" Type="varchar(max)" Nullable="false" />
+          <Property Name="date" Type="date" Nullable="false" />
+          <Property Name="FK_Audit_ID" Type="int" />
+          <Property Name="CreatedBy" Type="varchar(max)" />
+          <Property Name="CreatedOn" Type="date" />
+          <Property Name="ModifiedBy" Type="varchar(max)" />
+          <Property Name="ModifiedOn" Type="date" />
+        </EntityType>
+        <EntityType Name="HSE_transaction_tbl">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FK_HSE_Ques_Id" Type="int" Nullable="false" />
+          <Property Name="FK_HSE_Details_Id" Type="int" Nullable="false" />
+          <Property Name="Score" Type="int" Nullable="false" />
+          <Property Name="Remarks" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="mst_HSEQuest_tbl">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Group_no" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Question" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="mstAuditee">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PS_No" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Mail_id" Type="varchar(max)" Nullable="false" />
+          <Property Name="Name" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="mstAuditTeam">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="PS_No" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Mail_id" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="mstMailMatrix">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FK_Project_ID" Type="int" Nullable="false" />
+          <Property Name="FK_Observer_ID" Type="nvarchar" MaxLength="50" />
+          <Property Name="FK_Auditor_ID" Type="nvarchar" MaxLength="50" />
+          <Property Name="FK_Auditee" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="mstObserverTeam">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="PS_No" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Mail_id" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="mstProjectMaster">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Project_code" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Project_name" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="NCReport_details">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sitename" Type="varchar(max)" Nullable="false" />
+          <Property Name="department" Type="varchar(max)" Nullable="false" />
+          <Property Name="auditee" Type="varchar(max)" Nullable="false" />
+          <Property Name="ACNo" Type="varchar(max)" Nullable="false" />
+          <Property Name="process" Type="varchar(max)" Nullable="false" />
+          <Property Name="auditorName" Type="varchar(max)" Nullable="false" />
+          <Property Name="aperiod" Type="date" Nullable="false" />
+          <Property Name="clause" Type="varchar(max)" Nullable="false" />
+          <Property Name="ObserverTeam" Type="varchar(max)" Nullable="false" />
+          <Property Name="Major" Type="bit" Nullable="false" />
+          <Property Name="Minor" Type="bit" Nullable="false" />
+          <Property Name="req" Type="varchar(max)" Nullable="false" />
+          <Property Name="ObservedNC" Type="varchar(max)" Nullable="false" />
+          <Property Name="evidence" Type="varchar(max)" Nullable="false" />
+          <Property Name="proposedDate" Type="date" Nullable="false" />
+          <Property Name="actualDate" Type="date" Nullable="false" />
+          <Property Name="resPerson" Type="varchar(max)" Nullable="false" />
+          <Property Name="correction" Type="varchar(max)" Nullable="false" />
+          <Property Name="rootCause" Type="varchar(max)" Nullable="false" />
+          <Property Name="Actionresponse" Type="varchar(max)" Nullable="false" />
+          <Property Name="EviNC" Type="varchar(max)" Nullable="false" />
+          <Property Name="CAA" Type="bit" Nullable="false" />
+          <Property Name="NCD" Type="bit" Nullable="false" />
+          <Property Name="comments" Type="varchar(max)" Nullable="false" />
+          <Property Name="auditor" Type="varchar(max)" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="FK_Audit_ID" Type="int" />
+          <Property Name="CreatedBy" Type="varchar(max)" />
+          <Property Name="CreatedOn" Type="date" />
+          <Property Name="ModifiedBy" Type="varchar(max)" />
+          <Property Name="ModifiedOn" Type="date" />
+        </EntityType>
+        <EntityType Name="ProjectForm">
+          <Key>
+            <PropertyRef Name="PS_No" />
+          </Key>
+          <Property Name="PS_No" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar(max)" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Phone_No" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Question_master">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ques_no" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Questions" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Project2021.dbo.Questions' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Questions">
+          <Key>
+            <PropertyRef Name="Ques_No" />
+            <PropertyRef Name="Ques" />
+          </Key>
+          <Property Name="Ques_No" Type="int" Nullable="false" />
+          <Property Name="Ques" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="QuesTransaction_table">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ques_ID" Type="int" Nullable="false" />
+          <Property Name="AuditTable_ID" Type="int" Nullable="false" />
+          <Property Name="Observation" Type="varchar(max)" />
+          <Property Name="Score" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Project2021.dbo.SubQuestions' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="SubQuestions">
+          <Key>
+            <PropertyRef Name="SubQuesNo" />
+            <PropertyRef Name="SubQues" />
+          </Key>
+          <Property Name="SubQuesNo" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="SubQues" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_Adminmaster">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="PSNO" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="isDeleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_Rolemaster">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Rolename" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Form4Details_AuditTable">
+          <End Role="AuditTable" Type="Self.AuditTable" Multiplicity="1" />
+          <End Role="Form4Details" Type="Self.Form4Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AuditTable">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Form4Details">
+              <PropertyRef Name="FK_AuditID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HSE_details_tbl_AuditTable">
+          <End Role="AuditTable" Type="Self.AuditTable" Multiplicity="0..1" />
+          <End Role="HSE_details_tbl" Type="Self.HSE_details_tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AuditTable">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="HSE_details_tbl">
+              <PropertyRef Name="FK_Audit_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HSE_transaction_tbl_mst_HSEQuest_tbl">
+          <End Role="mst_HSEQuest_tbl" Type="Self.mst_HSEQuest_tbl" Multiplicity="1" />
+          <End Role="HSE_transaction_tbl" Type="Self.HSE_transaction_tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mst_HSEQuest_tbl">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HSE_transaction_tbl">
+              <PropertyRef Name="FK_HSE_Ques_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_mstMailMatrix_mstProjectMaster">
+          <End Role="mstProjectMaster" Type="Self.mstProjectMaster" Multiplicity="1" />
+          <End Role="mstMailMatrix" Type="Self.mstMailMatrix" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mstProjectMaster">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="mstMailMatrix">
+              <PropertyRef Name="FK_Project_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NCReport_details_AuditTable">
+          <End Role="AuditTable" Type="Self.AuditTable" Multiplicity="0..1" />
+          <End Role="NCReport_details" Type="Self.NCReport_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AuditTable">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="NCReport_details">
+              <PropertyRef Name="FK_Audit_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuesTransaction_table_AuditTable">
+          <End Role="AuditTable" Type="Self.AuditTable" Multiplicity="1" />
+          <End Role="QuesTransaction_table" Type="Self.QuesTransaction_table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AuditTable">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="QuesTransaction_table">
+              <PropertyRef Name="AuditTable_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuesTransaction_table_Question_master">
+          <End Role="Question_master" Type="Self.Question_master" Multiplicity="1" />
+          <End Role="QuesTransaction_table" Type="Self.QuesTransaction_table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question_master">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="QuesTransaction_table">
+              <PropertyRef Name="Ques_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Adminmaster_tbl_Rolemaster">
+          <End Role="tbl_Rolemaster" Type="Self.tbl_Rolemaster" Multiplicity="1" />
+          <End Role="tbl_Adminmaster" Type="Self.tbl_Adminmaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Rolemaster">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tbl_Adminmaster">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="formInsert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PS_No" Type="int" Mode="In" />
+          <Parameter Name="Name" Type="varchar(max)" Mode="In" />
+          <Parameter Name="Email" Type="varchar" Mode="In" />
+          <Parameter Name="Phone_No" Type="nchar" Mode="In" />
+        </Function>
+        <Function Name="getAuditDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="getAuditObserverTeam" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="projectid" Type="int" Mode="In" />
+          <Parameter Name="team" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="getData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="HSE_getData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="insertAuditForm" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Action" Type="varchar(max)" Mode="In" />
+          <Parameter Name="AuditID" Type="int" Mode="In" />
+          <Parameter Name="GridData" Type="varchar(max)" Mode="In" />
+          <Parameter Name="dateOfAudit" Type="date" Mode="In" />
+          <Parameter Name="siteName" Type="varchar(max)" Mode="In" />
+          <Parameter Name="siteDetails" Type="text" Mode="In" />
+          <Parameter Name="auditTeam" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="observerTeam" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="strenghts" Type="text" Mode="In" />
+          <Parameter Name="MajorNC" Type="text" Mode="In" />
+          <Parameter Name="MinorNC" Type="text" Mode="In" />
+          <Parameter Name="OFIs" Type="text" Mode="In" />
+          <Parameter Name="Audit_ID" Type="varchar(max)" Mode="In" />
+          <Parameter Name="CBY" Type="varchar(max)" Mode="In" />
+          <Parameter Name="CON" Type="date" Mode="In" />
+          <Parameter Name="MBY" Type="varchar(max)" Mode="In" />
+          <Parameter Name="MON" Type="date" Mode="In" />
+          <Parameter Name="IsSubToObs" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="sp_AdminMaster" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Action" Type="varchar" Mode="In" />
+          <Parameter Name="RoleId" Type="int" Mode="In" />
+          <Parameter Name="PSNO" Type="varchar" Mode="In" />
+          <Parameter Name="isDeleted" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="sp_HSE_insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ic" Type="varchar(max)" Mode="In" />
+          <Parameter Name="site" Type="varchar(max)" Mode="In" />
+          <Parameter Name="date" Type="date" Mode="In" />
+          <Parameter Name="FKAID" Type="varchar(max)" Mode="In" />
+          <Parameter Name="CBY" Type="varchar(max)" Mode="In" />
+          <Parameter Name="CON" Type="date" Mode="In" />
+          <Parameter Name="MBY" Type="varchar(max)" Mode="In" />
+          <Parameter Name="MON" Type="date" Mode="In" />
+        </Function>
+        <Function Name="sp_HSE_update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ic" Type="varchar(max)" Mode="In" />
+          <Parameter Name="site" Type="varchar(max)" Mode="In" />
+          <Parameter Name="date" Type="date" Mode="In" />
+          <Parameter Name="GridData" Type="varchar(max)" Mode="In" />
+          <Parameter Name="MBY" Type="varchar(max)" Mode="In" />
+          <Parameter Name="MON" Type="date" Mode="In" />
+          <Parameter Name="HSEId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_insertForm4Details" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="FK_AID" Type="int" Mode="In" />
+          <Parameter Name="ANO" Type="varchar(max)" Mode="In" />
+          <Parameter Name="isSentToObs" Type="bit" Mode="In" />
+          <Parameter Name="isApproved" Type="bit" Mode="In" />
+          <Parameter Name="ObsTeam" Type="varchar(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_NCReport_insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sitename" Type="varchar(max)" Mode="In" />
+          <Parameter Name="department" Type="varchar(max)" Mode="In" />
+          <Parameter Name="auditee" Type="varchar(max)" Mode="In" />
+          <Parameter Name="ACNo" Type="varchar(max)" Mode="In" />
+          <Parameter Name="process" Type="varchar(max)" Mode="In" />
+          <Parameter Name="auditorName" Type="varchar(max)" Mode="In" />
+          <Parameter Name="aperiod" Type="date" Mode="In" />
+          <Parameter Name="clause" Type="varchar(max)" Mode="In" />
+          <Parameter Name="ObserverTeam" Type="varchar(max)" Mode="In" />
+          <Parameter Name="Major" Type="bit" Mode="In" />
+          <Parameter Name="Minor" Type="bit" Mode="In" />
+          <Parameter Name="req" Type="varchar(max)" Mode="In" />
+          <Parameter Name="ObservedNC" Type="varchar(max)" Mode="In" />
+          <Parameter Name="evidence" Type="varchar(max)" Mode="In" />
+          <Parameter Name="proposedDate" Type="date" Mode="In" />
+          <Parameter Name="actualDate" Type="date" Mode="In" />
+          <Parameter Name="resPerson" Type="varchar(max)" Mode="In" />
+          <Parameter Name="correction" Type="varchar(max)" Mode="In" />
+          <Parameter Name="rootCause" Type="varchar(max)" Mode="In" />
+          <Parameter Name="Actionresponse" Type="varchar(max)" Mode="In" />
+          <Parameter Name="EviNC" Type="varchar(max)" Mode="In" />
+          <Parameter Name="CAA" Type="bit" Mode="In" />
+          <Parameter Name="NCD" Type="bit" Mode="In" />
+          <Parameter Name="comments" Type="varchar(max)" Mode="In" />
+          <Parameter Name="auditor" Type="varchar(max)" Mode="In" />
+          <Parameter Name="Date" Type="date" Mode="In" />
+          <Parameter Name="FKAuditID" Type="varchar(max)" Mode="In" />
+          <Parameter Name="CBY" Type="varchar(max)" Mode="In" />
+          <Parameter Name="CON" Type="date" Mode="In" />
+          <Parameter Name="MBY" Type="varchar(max)" Mode="In" />
+          <Parameter Name="MON" Type="date" Mode="In" />
+        </Function>
+        <Function Name="sp_NCReport_update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sitename" Type="varchar(max)" Mode="In" />
+          <Parameter Name="department" Type="varchar(max)" Mode="In" />
+          <Parameter Name="auditee" Type="varchar(max)" Mode="In" />
+          <Parameter Name="ACNo" Type="varchar(max)" Mode="In" />
+          <Parameter Name="process" Type="varchar(max)" Mode="In" />
+          <Parameter Name="auditorName" Type="varchar(max)" Mode="In" />
+          <Parameter Name="aperiod" Type="date" Mode="In" />
+          <Parameter Name="clause" Type="varchar(max)" Mode="In" />
+          <Parameter Name="ObserverTeam" Type="varchar(max)" Mode="In" />
+          <Parameter Name="Major" Type="bit" Mode="In" />
+          <Parameter Name="Minor" Type="bit" Mode="In" />
+          <Parameter Name="req" Type="varchar(max)" Mode="In" />
+          <Parameter Name="ObservedNC" Type="varchar(max)" Mode="In" />
+          <Parameter Name="evidence" Type="varchar(max)" Mode="In" />
+          <Parameter Name="proposedDate" Type="date" Mode="In" />
+          <Parameter Name="actualDate" Type="date" Mode="In" />
+          <Parameter Name="resPerson" Type="varchar(max)" Mode="In" />
+          <Parameter Name="correction" Type="varchar(max)" Mode="In" />
+          <Parameter Name="rootCause" Type="varchar(max)" Mode="In" />
+          <Parameter Name="Actionresponse" Type="varchar(max)" Mode="In" />
+          <Parameter Name="EviNC" Type="varchar(max)" Mode="In" />
+          <Parameter Name="CAA" Type="bit" Mode="In" />
+          <Parameter Name="NCD" Type="bit" Mode="In" />
+          <Parameter Name="comments" Type="varchar(max)" Mode="In" />
+          <Parameter Name="auditor" Type="varchar(max)" Mode="In" />
+          <Parameter Name="MBY" Type="varchar(max)" Mode="In" />
+          <Parameter Name="MON" Type="date" Mode="In" />
+          <Parameter Name="AID" Type="int" Mode="In" />
+          <Parameter Name="Date" Type="date" Mode="In" />
+        </Function>
+        <EntityContainer Name="Project2021ModelStoreContainer">
+          <EntitySet Name="AuditTable" EntityType="Self.AuditTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Form4Details" EntityType="Self.Form4Details" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HSE_details_tbl" EntityType="Self.HSE_details_tbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HSE_transaction_tbl" EntityType="Self.HSE_transaction_tbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mst_HSEQuest_tbl" EntityType="Self.mst_HSEQuest_tbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mstAuditee" EntityType="Self.mstAuditee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mstAuditTeam" EntityType="Self.mstAuditTeam" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mstMailMatrix" EntityType="Self.mstMailMatrix" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mstObserverTeam" EntityType="Self.mstObserverTeam" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mstProjectMaster" EntityType="Self.mstProjectMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NCReport_details" EntityType="Self.NCReport_details" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProjectForm" EntityType="Self.ProjectForm" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Question_master" EntityType="Self.Question_master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QuesTransaction_table" EntityType="Self.QuesTransaction_table" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Adminmaster" EntityType="Self.tbl_Adminmaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Rolemaster" EntityType="Self.tbl_Rolemaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Questions" EntityType="Self.Questions" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Questions].[Ques_No] AS [Ques_No], 
+    [Questions].[Ques] AS [Ques]
+    FROM [dbo].[Questions] AS [Questions]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="SubQuestions" EntityType="Self.SubQuestions" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [SubQuestions].[SubQuesNo] AS [SubQuesNo], 
+    [SubQuestions].[SubQues] AS [SubQues]
+    FROM [dbo].[SubQuestions] AS [SubQuestions]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Form4Details_AuditTable" Association="Self.FK_Form4Details_AuditTable">
+            <End Role="AuditTable" EntitySet="AuditTable" />
+            <End Role="Form4Details" EntitySet="Form4Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HSE_details_tbl_AuditTable" Association="Self.FK_HSE_details_tbl_AuditTable">
+            <End Role="AuditTable" EntitySet="AuditTable" />
+            <End Role="HSE_details_tbl" EntitySet="HSE_details_tbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HSE_transaction_tbl_mst_HSEQuest_tbl" Association="Self.FK_HSE_transaction_tbl_mst_HSEQuest_tbl">
+            <End Role="mst_HSEQuest_tbl" EntitySet="mst_HSEQuest_tbl" />
+            <End Role="HSE_transaction_tbl" EntitySet="HSE_transaction_tbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_mstMailMatrix_mstProjectMaster" Association="Self.FK_mstMailMatrix_mstProjectMaster">
+            <End Role="mstProjectMaster" EntitySet="mstProjectMaster" />
+            <End Role="mstMailMatrix" EntitySet="mstMailMatrix" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NCReport_details_AuditTable" Association="Self.FK_NCReport_details_AuditTable">
+            <End Role="AuditTable" EntitySet="AuditTable" />
+            <End Role="NCReport_details" EntitySet="NCReport_details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuesTransaction_table_AuditTable" Association="Self.FK_QuesTransaction_table_AuditTable">
+            <End Role="AuditTable" EntitySet="AuditTable" />
+            <End Role="QuesTransaction_table" EntitySet="QuesTransaction_table" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuesTransaction_table_Question_master" Association="Self.FK_QuesTransaction_table_Question_master">
+            <End Role="Question_master" EntitySet="Question_master" />
+            <End Role="QuesTransaction_table" EntitySet="QuesTransaction_table" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Adminmaster_tbl_Rolemaster" Association="Self.FK_tbl_Adminmaster_tbl_Rolemaster">
+            <End Role="tbl_Rolemaster" EntitySet="tbl_Rolemaster" />
+            <End Role="tbl_Adminmaster" EntitySet="tbl_Adminmaster" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Project2021Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AuditTable">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="dateOfAudit" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="siteName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="siteDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="auditTeam" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="observerTeam" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="strenghts" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="MajorNC" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="MinorNC" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="OFIs" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="QuesTransaction_table" Relationship="Self.FK_QuesTransaction_table_AuditTable" FromRole="AuditTable" ToRole="QuesTransaction_table" />
+          <Property Name="Audit_ID" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Form4Details" Relationship="Project2021Model.FK_Form4Details_AuditTable" FromRole="AuditTable" ToRole="Form4Details" />
+          <NavigationProperty Name="HSE_details_tbl" Relationship="Project2021Model.FK_HSE_details_tbl_AuditTable" FromRole="AuditTable" ToRole="HSE_details_tbl" />
+          <NavigationProperty Name="NCReport_details" Relationship="Project2021Model.FK_NCReport_details_AuditTable" FromRole="AuditTable" ToRole="NCReport_details" />
+          <Property Name="CreatedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="0" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="0" />
+          <Property Name="IsSubmittedToObserver" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="mstAuditTeam">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PS_No" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Mail_id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="mstMailMatrices" Relationship="Project2021Model.FK_mstMailMatrix_mstAuditTeam" FromRole="mstAuditTeam" ToRole="mstMailMatrix" />
+        </EntityType>
+        <EntityType Name="mstObserverTeam">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PS_No" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Mail_id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="mstMailMatrices" Relationship="Project2021Model.FK_mstMailMatrix_mstObserverTeam" FromRole="mstObserverTeam" ToRole="mstMailMatrix" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ProjectForm">
+          <Key>
+            <PropertyRef Name="PS_No" />
+          </Key>
+          <Property Name="PS_No" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Phone_No" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Question_master">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ques_no" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Questions" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="QuesTransaction_table" Relationship="Self.FK_QuesTransaction_table_Question_master" FromRole="Question_master" ToRole="QuesTransaction_table" />
+        </EntityType>
+        <EntityType Name="QuesTransaction_table">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ques_ID" Type="Int32" Nullable="false" />
+          <Property Name="AuditTable_ID" Type="Int32" Nullable="false" />
+          <Property Name="Observation" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Score" Type="Int32" />
+          <NavigationProperty Name="AuditTable" Relationship="Self.FK_QuesTransaction_table_AuditTable" FromRole="QuesTransaction_table" ToRole="AuditTable" />
+          <NavigationProperty Name="Question_master" Relationship="Self.FK_QuesTransaction_table_Question_master" FromRole="QuesTransaction_table" ToRole="Question_master" />
+        </EntityType>
+        <EntityType Name="Question">
+          <Key>
+            <PropertyRef Name="Ques_No" />
+            <PropertyRef Name="Ques" />
+          </Key>
+          <Property Name="Ques_No" Type="Int32" Nullable="false" />
+          <Property Name="Ques" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SubQuestion">
+          <Key>
+            <PropertyRef Name="SubQuesNo" />
+            <PropertyRef Name="SubQues" />
+          </Key>
+          <Property Name="SubQuesNo" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="SubQues" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_QuesTransaction_table_AuditTable">
+          <End Role="AuditTable" Type="Self.AuditTable" Multiplicity="1" />
+          <End Role="QuesTransaction_table" Type="Self.QuesTransaction_table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AuditTable">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="QuesTransaction_table">
+              <PropertyRef Name="AuditTable_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuesTransaction_table_Question_master">
+          <End Role="Question_master" Type="Self.Question_master" Multiplicity="1" />
+          <End Role="QuesTransaction_table" Type="Self.QuesTransaction_table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question_master">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="QuesTransaction_table">
+              <PropertyRef Name="Ques_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Project2021Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AuditTables" EntityType="Self.AuditTable" />
+          <EntitySet Name="mstAuditTeams" EntityType="Self.mstAuditTeam" />
+          <EntitySet Name="mstObserverTeams" EntityType="Self.mstObserverTeam" />
+          <EntitySet Name="ProjectForms" EntityType="Self.ProjectForm" />
+          <EntitySet Name="Question_master" EntityType="Self.Question_master" />
+          <EntitySet Name="QuesTransaction_table" EntityType="Self.QuesTransaction_table" />
+          <EntitySet Name="Questions" EntityType="Self.Question" />
+          <EntitySet Name="SubQuestions" EntityType="Self.SubQuestion" />
+          <AssociationSet Name="FK_QuesTransaction_table_AuditTable" Association="Self.FK_QuesTransaction_table_AuditTable">
+            <End Role="AuditTable" EntitySet="AuditTables" />
+            <End Role="QuesTransaction_table" EntitySet="QuesTransaction_table" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuesTransaction_table_Question_master" Association="Self.FK_QuesTransaction_table_Question_master">
+            <End Role="Question_master" EntitySet="Question_master" />
+            <End Role="QuesTransaction_table" EntitySet="QuesTransaction_table" />
+          </AssociationSet>
+          <FunctionImport Name="formInsert">
+            <Parameter Name="PS_No" Mode="In" Type="Int32" />
+            <Parameter Name="Name" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Phone_No" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="insertAuditForm">
+            <Parameter Name="Action" Mode="In" Type="String" />
+            <Parameter Name="AuditID" Mode="In" Type="Int32" />
+            <Parameter Name="GridData" Mode="In" Type="String" />
+            <Parameter Name="dateOfAudit" Mode="In" Type="DateTime" />
+            <Parameter Name="siteName" Mode="In" Type="String" />
+            <Parameter Name="siteDetails" Mode="In" Type="String" />
+            <Parameter Name="auditTeam" Mode="In" Type="String" />
+            <Parameter Name="observerTeam" Mode="In" Type="String" />
+            <Parameter Name="strenghts" Mode="In" Type="String" />
+            <Parameter Name="MajorNC" Mode="In" Type="String" />
+            <Parameter Name="MinorNC" Mode="In" Type="String" />
+            <Parameter Name="OFIs" Mode="In" Type="String" />
+            <Parameter Name="Audit_ID" Mode="In" Type="String" />
+            <Parameter Name="CBY" Mode="In" Type="String" />
+            <Parameter Name="CON" Mode="In" Type="DateTime" />
+            <Parameter Name="MBY" Mode="In" Type="String" />
+            <Parameter Name="MON" Mode="In" Type="DateTime" />
+            <Parameter Name="IsSubToObs" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="getData" ReturnType="Collection(Project2021Model.getData_Result)">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="mstMailMatrices" EntityType="Project2021Model.mstMailMatrix" />
+          <EntitySet Name="mstProjectMasters" EntityType="Project2021Model.mstProjectMaster" />
+          <AssociationSet Name="FK_mstMailMatrix_mstAuditTeam" Association="Project2021Model.FK_mstMailMatrix_mstAuditTeam">
+            <End Role="mstAuditTeam" EntitySet="mstAuditTeams" />
+            <End Role="mstMailMatrix" EntitySet="mstMailMatrices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_mstMailMatrix_mstObserverTeam" Association="Project2021Model.FK_mstMailMatrix_mstObserverTeam">
+            <End Role="mstObserverTeam" EntitySet="mstObserverTeams" />
+            <End Role="mstMailMatrix" EntitySet="mstMailMatrices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_mstMailMatrix_mstProjectMaster" Association="Project2021Model.FK_mstMailMatrix_mstProjectMaster">
+            <End Role="mstProjectMaster" EntitySet="mstProjectMasters" />
+            <End Role="mstMailMatrix" EntitySet="mstMailMatrices" />
+          </AssociationSet>
+          <FunctionImport Name="getAuditDetails" ReturnType="Collection(Project2021Model.getAuditDetails_Result)">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="getAuditObserverTeam" ReturnType="Collection(Project2021Model.getAuditObserverTeam_Result)">
+            <Parameter Name="projectid" Mode="In" Type="Int32" />
+            <Parameter Name="team" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="tbl_Adminmaster" EntityType="Project2021Model.tbl_Adminmaster" />
+          <EntitySet Name="tbl_Rolemaster" EntityType="Project2021Model.tbl_Rolemaster" />
+          <AssociationSet Name="FK_tbl_Adminmaster_tbl_Rolemaster" Association="Project2021Model.FK_tbl_Adminmaster_tbl_Rolemaster">
+            <End Role="tbl_Rolemaster" EntitySet="tbl_Rolemaster" />
+            <End Role="tbl_Adminmaster" EntitySet="tbl_Adminmaster" />
+          </AssociationSet>
+          <FunctionImport Name="sp_AdminMaster">
+            <Parameter Name="Action" Mode="In" Type="String" />
+            <Parameter Name="RoleId" Mode="In" Type="Int32" />
+            <Parameter Name="PSNO" Mode="In" Type="String" />
+            <Parameter Name="isDeleted" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <EntitySet Name="HSE_details_tbl" EntityType="Project2021Model.HSE_details_tbl" />
+          <EntitySet Name="HSE_transaction_tbl" EntityType="Project2021Model.HSE_transaction_tbl" />
+          <EntitySet Name="mst_HSEQuest_tbl" EntityType="Project2021Model.mst_HSEQuest_tbl" />
+          <EntitySet Name="NCReport_details" EntityType="Project2021Model.NCReport_details" />
+          <AssociationSet Name="FK_HSE_transaction_tbl_HSE_details_tbl" Association="Project2021Model.FK_HSE_transaction_tbl_HSE_details_tbl">
+            <End Role="HSE_details_tbl" EntitySet="HSE_details_tbl" />
+            <End Role="HSE_transaction_tbl" EntitySet="HSE_transaction_tbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HSE_transaction_tbl_mst_HSEQuest_tbl" Association="Project2021Model.FK_HSE_transaction_tbl_mst_HSEQuest_tbl">
+            <End Role="mst_HSEQuest_tbl" EntitySet="mst_HSEQuest_tbl" />
+            <End Role="HSE_transaction_tbl" EntitySet="HSE_transaction_tbl" />
+          </AssociationSet>
+          <FunctionImport Name="sp_HSE_insert">
+            <Parameter Name="ic" Mode="In" Type="String" />
+            <Parameter Name="site" Mode="In" Type="String" />
+            <Parameter Name="date" Mode="In" Type="DateTime" />
+            <Parameter Name="FKAID" Mode="In" Type="String" />
+            <Parameter Name="CBY" Mode="In" Type="String" />
+            <Parameter Name="CON" Mode="In" Type="DateTime" />
+            <Parameter Name="MBY" Mode="In" Type="String" />
+            <Parameter Name="MON" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="sp_NCReport_insert">
+            <Parameter Name="sitename" Mode="In" Type="String" />
+            <Parameter Name="department" Mode="In" Type="String" />
+            <Parameter Name="auditee" Mode="In" Type="String" />
+            <Parameter Name="ACNo" Mode="In" Type="String" />
+            <Parameter Name="process" Mode="In" Type="String" />
+            <Parameter Name="auditorName" Mode="In" Type="String" />
+            <Parameter Name="aperiod" Mode="In" Type="DateTime" />
+            <Parameter Name="clause" Mode="In" Type="String" />
+            <Parameter Name="ObserverTeam" Mode="In" Type="String" />
+            <Parameter Name="Major" Mode="In" Type="Boolean" />
+            <Parameter Name="Minor" Mode="In" Type="Boolean" />
+            <Parameter Name="req" Mode="In" Type="String" />
+            <Parameter Name="ObservedNC" Mode="In" Type="String" />
+            <Parameter Name="evidence" Mode="In" Type="String" />
+            <Parameter Name="proposedDate" Mode="In" Type="DateTime" />
+            <Parameter Name="actualDate" Mode="In" Type="DateTime" />
+            <Parameter Name="resPerson" Mode="In" Type="String" />
+            <Parameter Name="correction" Mode="In" Type="String" />
+            <Parameter Name="rootCause" Mode="In" Type="String" />
+            <Parameter Name="Actionresponse" Mode="In" Type="String" />
+            <Parameter Name="EviNC" Mode="In" Type="String" />
+            <Parameter Name="CAA" Mode="In" Type="Boolean" />
+            <Parameter Name="NCD" Mode="In" Type="Boolean" />
+            <Parameter Name="comments" Mode="In" Type="String" />
+            <Parameter Name="auditor" Mode="In" Type="String" />
+            <Parameter Name="Date" Mode="In" Type="DateTime" />
+            <Parameter Name="FKAuditID" Mode="In" Type="String" />
+            <Parameter Name="CBY" Mode="In" Type="String" />
+            <Parameter Name="CON" Mode="In" Type="DateTime" />
+            <Parameter Name="MBY" Mode="In" Type="String" />
+            <Parameter Name="MON" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <EntitySet Name="Form4Details" EntityType="Project2021Model.Form4Details" />
+          <AssociationSet Name="FK_Form4Details_AuditTable" Association="Project2021Model.FK_Form4Details_AuditTable">
+            <End Role="AuditTable" EntitySet="AuditTables" />
+            <End Role="Form4Details" EntitySet="Form4Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HSE_details_tbl_AuditTable" Association="Project2021Model.FK_HSE_details_tbl_AuditTable">
+            <End Role="AuditTable" EntitySet="AuditTables" />
+            <End Role="HSE_details_tbl" EntitySet="HSE_details_tbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NCReport_details_AuditTable" Association="Project2021Model.FK_NCReport_details_AuditTable">
+            <End Role="AuditTable" EntitySet="AuditTables" />
+            <End Role="NCReport_details" EntitySet="NCReport_details" />
+          </AssociationSet>
+          <FunctionImport Name="HSE_getData" ReturnType="Collection(Project2021Model.HSE_getData_Result)">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_insertForm4Details">
+            <Parameter Name="FK_AID" Mode="In" Type="Int32" />
+            <Parameter Name="ANO" Mode="In" Type="String" />
+            <Parameter Name="isSentToObs" Mode="In" Type="Boolean" />
+            <Parameter Name="isApproved" Mode="In" Type="Boolean" />
+            <Parameter Name="ObsTeam" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="mstAuditees" EntityType="Project2021Model.mstAuditee" />
+          <FunctionImport Name="sp_HSE_update">
+            <Parameter Name="ic" Mode="In" Type="String" />
+            <Parameter Name="site" Mode="In" Type="String" />
+            <Parameter Name="date" Mode="In" Type="DateTime" />
+            <Parameter Name="GridData" Mode="In" Type="String" />
+            <Parameter Name="MBY" Mode="In" Type="String" />
+            <Parameter Name="MON" Mode="In" Type="DateTime" />
+            <Parameter Name="HSEId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_NCReport_update">
+            <Parameter Name="sitename" Mode="In" Type="String" />
+            <Parameter Name="department" Mode="In" Type="String" />
+            <Parameter Name="auditee" Mode="In" Type="String" />
+            <Parameter Name="ACNo" Mode="In" Type="String" />
+            <Parameter Name="process" Mode="In" Type="String" />
+            <Parameter Name="auditorName" Mode="In" Type="String" />
+            <Parameter Name="aperiod" Mode="In" Type="DateTime" />
+            <Parameter Name="clause" Mode="In" Type="String" />
+            <Parameter Name="ObserverTeam" Mode="In" Type="String" />
+            <Parameter Name="Major" Mode="In" Type="Boolean" />
+            <Parameter Name="Minor" Mode="In" Type="Boolean" />
+            <Parameter Name="req" Mode="In" Type="String" />
+            <Parameter Name="ObservedNC" Mode="In" Type="String" />
+            <Parameter Name="evidence" Mode="In" Type="String" />
+            <Parameter Name="proposedDate" Mode="In" Type="DateTime" />
+            <Parameter Name="actualDate" Mode="In" Type="DateTime" />
+            <Parameter Name="resPerson" Mode="In" Type="String" />
+            <Parameter Name="correction" Mode="In" Type="String" />
+            <Parameter Name="rootCause" Mode="In" Type="String" />
+            <Parameter Name="Actionresponse" Mode="In" Type="String" />
+            <Parameter Name="EviNC" Mode="In" Type="String" />
+            <Parameter Name="CAA" Mode="In" Type="Boolean" />
+            <Parameter Name="NCD" Mode="In" Type="Boolean" />
+            <Parameter Name="comments" Mode="In" Type="String" />
+            <Parameter Name="auditor" Mode="In" Type="String" />
+            <Parameter Name="MBY" Mode="In" Type="String" />
+            <Parameter Name="MON" Mode="In" Type="DateTime" />
+            <Parameter Name="AID" Mode="In" Type="Int32" />
+            <Parameter Name="Date" Mode="In" Type="DateTime" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="getData_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Decimal" Name="Ques_no" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="String" Name="Questions" Nullable="false" />
+          <Property Type="String" Name="Observation" Nullable="true" />
+          <Property Type="Int32" Name="Score" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="mstMailMatrix">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FK_Project_ID" Type="Int32" Nullable="false" />
+          <Property Name="FK_Observer_ID" Type="Int32" />
+          <Property Name="FK_Auditor_ID" Type="Int32" />
+          <NavigationProperty Name="mstAuditTeam" Relationship="Project2021Model.FK_mstMailMatrix_mstAuditTeam" FromRole="mstMailMatrix" ToRole="mstAuditTeam" />
+          <NavigationProperty Name="mstObserverTeam" Relationship="Project2021Model.FK_mstMailMatrix_mstObserverTeam" FromRole="mstMailMatrix" ToRole="mstObserverTeam" />
+          <NavigationProperty Name="mstProjectMaster" Relationship="Project2021Model.FK_mstMailMatrix_mstProjectMaster" FromRole="mstMailMatrix" ToRole="mstProjectMaster" />
+          <Property Name="FK_Auditee" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="mstProjectMaster">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Project_code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Project_name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="mstMailMatrices" Relationship="Project2021Model.FK_mstMailMatrix_mstProjectMaster" FromRole="mstProjectMaster" ToRole="mstMailMatrix" />
+        </EntityType>
+        <Association Name="FK_mstMailMatrix_mstAuditTeam">
+          <End Type="Project2021Model.mstAuditTeam" Role="mstAuditTeam" Multiplicity="0..1" />
+          <End Type="Project2021Model.mstMailMatrix" Role="mstMailMatrix" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mstAuditTeam">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="mstMailMatrix">
+              <PropertyRef Name="FK_Auditor_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_mstMailMatrix_mstObserverTeam">
+          <End Type="Project2021Model.mstObserverTeam" Role="mstObserverTeam" Multiplicity="0..1" />
+          <End Type="Project2021Model.mstMailMatrix" Role="mstMailMatrix" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mstObserverTeam">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="mstMailMatrix">
+              <PropertyRef Name="FK_Observer_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_mstMailMatrix_mstProjectMaster">
+          <End Type="Project2021Model.mstProjectMaster" Role="mstProjectMaster" Multiplicity="1" />
+          <End Type="Project2021Model.mstMailMatrix" Role="mstMailMatrix" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mstProjectMaster">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="mstMailMatrix">
+              <PropertyRef Name="FK_Project_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="getAuditDetails_Result">
+          <Property Type="DateTime" Name="dateOfAudit" Nullable="false" />
+          <Property Type="String" Name="siteName" Nullable="false" />
+          <Property Type="String" Name="siteDetails" Nullable="false" MaxLength="Max" />
+          <Property Type="String" Name="auditTeam" Nullable="false" />
+          <Property Type="String" Name="observerTeam" Nullable="false" />
+          <Property Type="String" Name="strenghts" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="MajorNC" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="MinorNC" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="OFIs" Nullable="true" MaxLength="Max" />
+          <Property Type="Int32" Name="id" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="getAuditObserverTeam_Result">
+          <Property Type="Int32" Name="FK_Observer_ID" Nullable="true" />
+          <Property Type="Decimal" Name="PS_No" Nullable="false" Precision="18" Scale="0" />
+        </ComplexType>
+        <EntityType Name="tbl_Adminmaster">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="PSNO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="isDeleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="tbl_Rolemaster" Relationship="Project2021Model.FK_tbl_Adminmaster_tbl_Rolemaster" FromRole="tbl_Adminmaster" ToRole="tbl_Rolemaster" />
+        </EntityType>
+        <EntityType Name="tbl_Rolemaster">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Rolename" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbl_Adminmaster" Relationship="Project2021Model.FK_tbl_Adminmaster_tbl_Rolemaster" FromRole="tbl_Rolemaster" ToRole="tbl_Adminmaster" />
+        </EntityType>
+        <Association Name="FK_tbl_Adminmaster_tbl_Rolemaster">
+          <End Type="Project2021Model.tbl_Rolemaster" Role="tbl_Rolemaster" Multiplicity="1" />
+          <End Type="Project2021Model.tbl_Adminmaster" Role="tbl_Adminmaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Rolemaster">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tbl_Adminmaster">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="HSE_details_tbl">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ic" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="site" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="HSE_transaction_tbl" Relationship="Project2021Model.FK_HSE_transaction_tbl_HSE_details_tbl" FromRole="HSE_details_tbl" ToRole="HSE_transaction_tbl" />
+          <Property Name="FK_Audit_ID" Type="Int32" />
+          <NavigationProperty Name="AuditTable" Relationship="Project2021Model.FK_HSE_details_tbl_AuditTable" FromRole="HSE_details_tbl" ToRole="AuditTable" />
+          <Property Name="CreatedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="0" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="HSE_transaction_tbl">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FK_HSE_Ques_Id" Type="Int32" Nullable="false" />
+          <Property Name="FK_HSE_Details_Id" Type="Int32" Nullable="false" />
+          <Property Name="Score" Type="Int32" Nullable="false" />
+          <Property Name="Remarks" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="HSE_details_tbl" Relationship="Project2021Model.FK_HSE_transaction_tbl_HSE_details_tbl" FromRole="HSE_transaction_tbl" ToRole="HSE_details_tbl" />
+          <NavigationProperty Name="mst_HSEQuest_tbl" Relationship="Project2021Model.FK_HSE_transaction_tbl_mst_HSEQuest_tbl" FromRole="HSE_transaction_tbl" ToRole="mst_HSEQuest_tbl" />
+        </EntityType>
+        <EntityType Name="mst_HSEQuest_tbl">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Group_no" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Question" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="HSE_transaction_tbl" Relationship="Project2021Model.FK_HSE_transaction_tbl_mst_HSEQuest_tbl" FromRole="mst_HSEQuest_tbl" ToRole="HSE_transaction_tbl" />
+        </EntityType>
+        <EntityType Name="NCReport_details">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sitename" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="department" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="auditee" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ACNo" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="process" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="auditorName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="aperiod" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="clause" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ObserverTeam" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Major" Type="Boolean" Nullable="false" />
+          <Property Name="Minor" Type="Boolean" Nullable="false" />
+          <Property Name="req" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ObservedNC" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="evidence" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="proposedDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="actualDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="resPerson" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="correction" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="rootCause" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Actionresponse" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="EviNC" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CAA" Type="Boolean" Nullable="false" />
+          <Property Name="NCD" Type="Boolean" Nullable="false" />
+          <Property Name="comments" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="auditor" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="FK_Audit_ID" Type="Int32" />
+          <NavigationProperty Name="AuditTable" Relationship="Project2021Model.FK_NCReport_details_AuditTable" FromRole="NCReport_details" ToRole="AuditTable" />
+          <Property Name="CreatedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="0" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="0" />
+        </EntityType>
+        <Association Name="FK_HSE_transaction_tbl_HSE_details_tbl">
+          <End Type="Project2021Model.HSE_details_tbl" Role="HSE_details_tbl" Multiplicity="1" />
+          <End Type="Project2021Model.HSE_transaction_tbl" Role="HSE_transaction_tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HSE_details_tbl">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HSE_transaction_tbl">
+              <PropertyRef Name="FK_HSE_Details_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HSE_transaction_tbl_mst_HSEQuest_tbl">
+          <End Type="Project2021Model.mst_HSEQuest_tbl" Role="mst_HSEQuest_tbl" Multiplicity="1" />
+          <End Type="Project2021Model.HSE_transaction_tbl" Role="HSE_transaction_tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mst_HSEQuest_tbl">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HSE_transaction_tbl">
+              <PropertyRef Name="FK_HSE_Ques_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Form4Details">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FK_AuditID" Type="Int32" Nullable="false" />
+          <Property Name="AuditNo" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IsSubmittedToObserver" Type="Boolean" Nullable="false" />
+          <Property Name="IsApproved" Type="Boolean" Nullable="false" />
+          <Property Name="ObserverTeam" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AuditTable" Relationship="Project2021Model.FK_Form4Details_AuditTable" FromRole="Form4Details" ToRole="AuditTable" />
+          <Property Name="AuditeeTeam" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="isAPApproved" Type="Boolean" />
+          <Property Name="ActPlan" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_Form4Details_AuditTable">
+          <End Type="Project2021Model.AuditTable" Role="AuditTable" Multiplicity="1" />
+          <End Type="Project2021Model.Form4Details" Role="Form4Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AuditTable">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Form4Details">
+              <PropertyRef Name="FK_AuditID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HSE_details_tbl_AuditTable">
+          <End Type="Project2021Model.AuditTable" Role="AuditTable" Multiplicity="0..1" />
+          <End Type="Project2021Model.HSE_details_tbl" Role="HSE_details_tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AuditTable">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="HSE_details_tbl">
+              <PropertyRef Name="FK_Audit_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NCReport_details_AuditTable">
+          <End Type="Project2021Model.AuditTable" Role="AuditTable" Multiplicity="0..1" />
+          <End Type="Project2021Model.NCReport_details" Role="NCReport_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AuditTable">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="NCReport_details">
+              <PropertyRef Name="FK_Audit_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="HSE_getData_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Group_no" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="Question" Nullable="false" />
+          <Property Type="Int32" Name="Score" Nullable="false" />
+          <Property Type="String" Name="Remarks" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="mstAuditee">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PS_No" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="Mail_id" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Project2021ModelStoreContainer" CdmEntityContainer="Project2021Entities">
+          <EntitySetMapping Name="AuditTables">
+            <EntityTypeMapping TypeName="Project2021Model.AuditTable">
+              <MappingFragment StoreEntitySet="AuditTable">
+                <ScalarProperty Name="IsSubmittedToObserver" ColumnName="IsSubmittedToObserver" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Audit_ID" ColumnName="Audit_ID" />
+                <ScalarProperty Name="dateOfAudit" ColumnName="dateOfAudit" />
+                <ScalarProperty Name="siteName" ColumnName="siteName" />
+                <ScalarProperty Name="siteDetails" ColumnName="siteDetails" />
+                <ScalarProperty Name="auditTeam" ColumnName="auditTeam" />
+                <ScalarProperty Name="observerTeam" ColumnName="observerTeam" />
+                <ScalarProperty Name="strenghts" ColumnName="strenghts" />
+                <ScalarProperty Name="MajorNC" ColumnName="MajorNC" />
+                <ScalarProperty Name="MinorNC" ColumnName="MinorNC" />
+                <ScalarProperty Name="OFIs" ColumnName="OFIs" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mstAuditTeams">
+            <EntityTypeMapping TypeName="Project2021Model.mstAuditTeam">
+              <MappingFragment StoreEntitySet="mstAuditTeam">
+                <ScalarProperty Name="Mail_id" ColumnName="Mail_id" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="PS_No" ColumnName="PS_No" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mstObserverTeams">
+            <EntityTypeMapping TypeName="Project2021Model.mstObserverTeam">
+              <MappingFragment StoreEntitySet="mstObserverTeam">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Mail_id" ColumnName="Mail_id" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="PS_No" ColumnName="PS_No" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProjectForms">
+            <EntityTypeMapping TypeName="Project2021Model.ProjectForm">
+              <MappingFragment StoreEntitySet="ProjectForm">
+                <ScalarProperty Name="PS_No" ColumnName="PS_No" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone_No" ColumnName="Phone_No" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Question_master">
+            <EntityTypeMapping TypeName="Project2021Model.Question_master">
+              <MappingFragment StoreEntitySet="Question_master">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Ques_no" ColumnName="Ques_no" />
+                <ScalarProperty Name="Questions" ColumnName="Questions" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QuesTransaction_table">
+            <EntityTypeMapping TypeName="Project2021Model.QuesTransaction_table">
+              <MappingFragment StoreEntitySet="QuesTransaction_table">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Ques_ID" ColumnName="Ques_ID" />
+                <ScalarProperty Name="AuditTable_ID" ColumnName="AuditTable_ID" />
+                <ScalarProperty Name="Observation" ColumnName="Observation" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Questions">
+            <EntityTypeMapping TypeName="Project2021Model.Question">
+              <MappingFragment StoreEntitySet="Questions">
+                <ScalarProperty Name="Ques_No" ColumnName="Ques_No" />
+                <ScalarProperty Name="Ques" ColumnName="Ques" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SubQuestions">
+            <EntityTypeMapping TypeName="Project2021Model.SubQuestion">
+              <MappingFragment StoreEntitySet="SubQuestions">
+                <ScalarProperty Name="SubQuesNo" ColumnName="SubQuesNo" />
+                <ScalarProperty Name="SubQues" ColumnName="SubQues" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="formInsert" FunctionName="Project2021Model.Store.formInsert" />
+          <FunctionImportMapping FunctionImportName="insertAuditForm" FunctionName="Project2021Model.Store.insertAuditForm" />
+          <FunctionImportMapping FunctionImportName="getData" FunctionName="Project2021Model.Store.getData">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Project2021Model.getData_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Ques_no" ColumnName="Ques_no" />
+                <ScalarProperty Name="Questions" ColumnName="Questions" />
+                <ScalarProperty Name="Observation" ColumnName="Observation" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="mstMailMatrices">
+            <EntityTypeMapping TypeName="Project2021Model.mstMailMatrix">
+              <MappingFragment StoreEntitySet="mstMailMatrix">
+                <ScalarProperty Name="FK_Auditee" ColumnName="FK_Auditee" />
+                <ScalarProperty Name="FK_Auditor_ID" ColumnName="FK_Auditor_ID" />
+                <ScalarProperty Name="FK_Observer_ID" ColumnName="FK_Observer_ID" />
+                <ScalarProperty Name="FK_Project_ID" ColumnName="FK_Project_ID" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mstProjectMasters">
+            <EntityTypeMapping TypeName="Project2021Model.mstProjectMaster">
+              <MappingFragment StoreEntitySet="mstProjectMaster">
+                <ScalarProperty Name="Project_name" ColumnName="Project_name" />
+                <ScalarProperty Name="Project_code" ColumnName="Project_code" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="getAuditDetails" FunctionName="Project2021Model.Store.getAuditDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Project2021Model.getAuditDetails_Result">
+                <ScalarProperty Name="dateOfAudit" ColumnName="dateOfAudit" />
+                <ScalarProperty Name="siteName" ColumnName="siteName" />
+                <ScalarProperty Name="siteDetails" ColumnName="siteDetails" />
+                <ScalarProperty Name="auditTeam" ColumnName="auditTeam" />
+                <ScalarProperty Name="observerTeam" ColumnName="observerTeam" />
+                <ScalarProperty Name="strenghts" ColumnName="strenghts" />
+                <ScalarProperty Name="MajorNC" ColumnName="MajorNC" />
+                <ScalarProperty Name="MinorNC" ColumnName="MinorNC" />
+                <ScalarProperty Name="OFIs" ColumnName="OFIs" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="getAuditObserverTeam" FunctionName="Project2021Model.Store.getAuditObserverTeam">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Project2021Model.getAuditObserverTeam_Result">
+                <ScalarProperty Name="FK_Observer_ID" ColumnName="FK_Observer_ID" />
+                <ScalarProperty Name="PS_No" ColumnName="PS_No" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="tbl_Adminmaster">
+            <EntityTypeMapping TypeName="Project2021Model.tbl_Adminmaster">
+              <MappingFragment StoreEntitySet="tbl_Adminmaster">
+                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+                <ScalarProperty Name="PSNO" ColumnName="PSNO" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Rolemaster">
+            <EntityTypeMapping TypeName="Project2021Model.tbl_Rolemaster">
+              <MappingFragment StoreEntitySet="tbl_Rolemaster">
+                <ScalarProperty Name="Rolename" ColumnName="Rolename" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_AdminMaster" FunctionName="Project2021Model.Store.sp_AdminMaster" />
+          <EntitySetMapping Name="HSE_details_tbl">
+            <EntityTypeMapping TypeName="Project2021Model.HSE_details_tbl">
+              <MappingFragment StoreEntitySet="HSE_details_tbl">
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="FK_Audit_ID" ColumnName="FK_Audit_ID" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="site" ColumnName="site" />
+                <ScalarProperty Name="ic" ColumnName="ic" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HSE_transaction_tbl">
+            <EntityTypeMapping TypeName="Project2021Model.HSE_transaction_tbl">
+              <MappingFragment StoreEntitySet="HSE_transaction_tbl">
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+                <ScalarProperty Name="FK_HSE_Details_Id" ColumnName="FK_HSE_Details_Id" />
+                <ScalarProperty Name="FK_HSE_Ques_Id" ColumnName="FK_HSE_Ques_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mst_HSEQuest_tbl">
+            <EntityTypeMapping TypeName="Project2021Model.mst_HSEQuest_tbl">
+              <MappingFragment StoreEntitySet="mst_HSEQuest_tbl">
+                <ScalarProperty Name="Question" ColumnName="Question" />
+                <ScalarProperty Name="Group_no" ColumnName="Group_no" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NCReport_details">
+            <EntityTypeMapping TypeName="Project2021Model.NCReport_details">
+              <MappingFragment StoreEntitySet="NCReport_details">
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="FK_Audit_ID" ColumnName="FK_Audit_ID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="auditor" ColumnName="auditor" />
+                <ScalarProperty Name="comments" ColumnName="comments" />
+                <ScalarProperty Name="NCD" ColumnName="NCD" />
+                <ScalarProperty Name="CAA" ColumnName="CAA" />
+                <ScalarProperty Name="EviNC" ColumnName="EviNC" />
+                <ScalarProperty Name="Actionresponse" ColumnName="Actionresponse" />
+                <ScalarProperty Name="rootCause" ColumnName="rootCause" />
+                <ScalarProperty Name="correction" ColumnName="correction" />
+                <ScalarProperty Name="resPerson" ColumnName="resPerson" />
+                <ScalarProperty Name="actualDate" ColumnName="actualDate" />
+                <ScalarProperty Name="proposedDate" ColumnName="proposedDate" />
+                <ScalarProperty Name="evidence" ColumnName="evidence" />
+                <ScalarProperty Name="ObservedNC" ColumnName="ObservedNC" />
+                <ScalarProperty Name="req" ColumnName="req" />
+                <ScalarProperty Name="Minor" ColumnName="Minor" />
+                <ScalarProperty Name="Major" ColumnName="Major" />
+                <ScalarProperty Name="ObserverTeam" ColumnName="ObserverTeam" />
+                <ScalarProperty Name="clause" ColumnName="clause" />
+                <ScalarProperty Name="aperiod" ColumnName="aperiod" />
+                <ScalarProperty Name="auditorName" ColumnName="auditorName" />
+                <ScalarProperty Name="process" ColumnName="process" />
+                <ScalarProperty Name="ACNo" ColumnName="ACNo" />
+                <ScalarProperty Name="auditee" ColumnName="auditee" />
+                <ScalarProperty Name="department" ColumnName="department" />
+                <ScalarProperty Name="sitename" ColumnName="sitename" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_HSE_insert" FunctionName="Project2021Model.Store.sp_HSE_insert" />
+          <FunctionImportMapping FunctionImportName="sp_NCReport_insert" FunctionName="Project2021Model.Store.sp_NCReport_insert" />
+          <EntitySetMapping Name="Form4Details">
+            <EntityTypeMapping TypeName="Project2021Model.Form4Details">
+              <MappingFragment StoreEntitySet="Form4Details">
+                <ScalarProperty Name="ActPlan" ColumnName="ActPlan" />
+                <ScalarProperty Name="isAPApproved" ColumnName="isAPApproved" />
+                <ScalarProperty Name="AuditeeTeam" ColumnName="AuditeeTeam" />
+                <ScalarProperty Name="ObserverTeam" ColumnName="ObserverTeam" />
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+                <ScalarProperty Name="IsSubmittedToObserver" ColumnName="IsSubmittedToObserver" />
+                <ScalarProperty Name="AuditNo" ColumnName="AuditNo" />
+                <ScalarProperty Name="FK_AuditID" ColumnName="FK_AuditID" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="HSE_getData" FunctionName="Project2021Model.Store.HSE_getData">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Project2021Model.HSE_getData_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Group_no" ColumnName="Group_no" />
+                <ScalarProperty Name="Question" ColumnName="Question" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_insertForm4Details" FunctionName="Project2021Model.Store.sp_insertForm4Details" />
+          <EntitySetMapping Name="mstAuditees">
+            <EntityTypeMapping TypeName="Project2021Model.mstAuditee">
+              <MappingFragment StoreEntitySet="mstAuditee">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Mail_id" ColumnName="Mail_id" />
+                <ScalarProperty Name="PS_No" ColumnName="PS_No" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_HSE_update" FunctionName="Project2021Model.Store.sp_HSE_update" />
+          <FunctionImportMapping FunctionImportName="sp_NCReport_update" FunctionName="Project2021Model.Store.sp_NCReport_update" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

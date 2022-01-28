@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="2950f6d70c2c414db86c20af64c577a8" Name="Diagram1" ZoomLevel="78">
+        <EntityTypeShape EntityType="Project2021Model.AuditTable" Width="1.5" PointX="6" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Project2021Model.mstAuditTeam" Width="1.5" PointX="1.25" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Project2021Model.mstObserverTeam" Width="1.5" PointX="3.25" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Project2021Model.ProjectForm" Width="1.5" PointX="26" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Project2021Model.Question_master" Width="1.5" PointX="10.5" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Project2021Model.QuesTransaction_table" Width="1.5" PointX="8.375" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Project2021Model.Question" Width="1.5" PointX="26.125" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Project2021Model.SubQuestion" Width="1.5" PointX="26" PointY="7.875" IsExpanded="true" />
+        <AssociationConnector Association="Project2021Model.FK_QuesTransaction_table_AuditTable" ManuallyRouted="false" />
+        <AssociationConnector Association="Project2021Model.FK_QuesTransaction_table_Question_master" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Project2021Model.mstMailMatrix" Width="1.5" PointX="3.25" PointY="0.5" />
+        <EntityTypeShape EntityType="Project2021Model.mstProjectMaster" Width="1.5" PointX="1.375" PointY="0.625" />
+        <AssociationConnector Association="Project2021Model.FK_mstMailMatrix_mstAuditTeam" />
+        <AssociationConnector Association="Project2021Model.FK_mstMailMatrix_mstObserverTeam" />
+        <AssociationConnector Association="Project2021Model.FK_mstMailMatrix_mstProjectMaster" />
+        <EntityTypeShape EntityType="Project2021Model.tbl_Adminmaster" Width="1.5" PointX="5.375" PointY="9.5" />
+        <EntityTypeShape EntityType="Project2021Model.tbl_Rolemaster" Width="1.5" PointX="3.25" PointY="9.625" />
+        <AssociationConnector Association="Project2021Model.FK_tbl_Adminmaster_tbl_Rolemaster" />
+        <EntityTypeShape EntityType="Project2021Model.HSE_details_tbl" Width="1.5" PointX="9.125" PointY="3.5" />
+        <EntityTypeShape EntityType="Project2021Model.HSE_transaction_tbl" Width="1.5" PointX="11.625" PointY="3.75" />
+        <EntityTypeShape EntityType="Project2021Model.mst_HSEQuest_tbl" Width="1.5" PointX="9.25" PointY="6.625" />
+        <EntityTypeShape EntityType="Project2021Model.NCReport_details" Width="1.5" PointX="13.625" PointY="0.5" />
+        <AssociationConnector Association="Project2021Model.FK_HSE_transaction_tbl_HSE_details_tbl" />
+        <AssociationConnector Association="Project2021Model.FK_HSE_transaction_tbl_mst_HSEQuest_tbl" />
+        <EntityTypeShape EntityType="Project2021Model.Form4Details" Width="1.5" PointX="6" PointY="5.5" />
+        <AssociationConnector Association="Project2021Model.FK_Form4Details_AuditTable" />
+        <AssociationConnector Association="Project2021Model.FK_HSE_details_tbl_AuditTable" />
+        <AssociationConnector Association="Project2021Model.FK_NCReport_details_AuditTable" />
+        <EntityTypeShape EntityType="Project2021Model.mstAuditee" Width="1.5" PointX="2.125" PointY="6.125" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
